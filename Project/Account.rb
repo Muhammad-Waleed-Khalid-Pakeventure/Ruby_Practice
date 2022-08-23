@@ -1,23 +1,20 @@
 class Account
-
-    def initialize(name,username,password,id,type)
-        @@count=@@count+1
-        @name=name
+    @@userCount=0
+    attr_accessor :username,:id,:password,:type,:is_deleted
+    def initialize(id,username,password,type,is_deleted)
+        @id=id if id != -1
+        @id=@@userCount if id == -1
         @username=username
         @password=password
-        @id=id
         @type=type
-    end
-    def self.initialize()
-        @@count=0
-    end
-end
-class AccountList
-    def initialize(filename)
-        Table=CSV.read(filename,headers:true)
-        @List=[]
-        for i in table
+        @is_deleted=is_deleted
+        @@userCount=@@userCount+1
 
+    end
+
+    def authenticate_user(username,password)
+        return type if (@username==username and @@password==password)
+        return 0
     end
 
 end
